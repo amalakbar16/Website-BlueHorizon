@@ -1,3 +1,35 @@
+<?php
+ include("functions.php");
+ session_start();
+
+ if (isset($_POST['login'])) {
+    $username = $_POST["username"];
+    $password = $_POST["password"]; 
+
+    $result = mysqli_query($conn,"SELECT * FROM users WHERE username='$username'");
+
+    // cek username
+    if (mysqli_num_rows($result) === 1) {
+
+        // cek password
+        $row = mysqli_fetch_assoc($result);
+        if (password_verify($password, $row["password"])) {
+            $_SESSION["username"] = $row["username"];
+            $_SESSION["user_type"] = $row["user_type"];
+
+            if ($row["user_type"] == "user") {
+                header("Location: dashboard_user.php");
+            } else if ($row["user_type"] == "admin") {
+                header("Location: index.php");
+            }
+        }
+    } else {
+        $display_message = "Username / Password not found!";
+    }
+ }
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,57 +55,46 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body class="font-sans bg-gray-50">
-    <!-- Header -->
+
+    <!-- Header Start -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-1 py-3 flex items-center justify-between">
             <div class="flex items-center left-0">
-                <a href="index.html" class="flex items-center">
-                    <img src="img/BlueHorizon Logo 2.png" alt="BlueHorizon Logo" class="h-16 mr-3">
-                    <span class="text-2xl font-bold text-primary mr-3">BlueHorizon</span>
+                <a href="index.php" class="flex items-center">
+                    <img src="images/BlueHorizon Logo 2.png" alt="BlueHorizon Logo" class="h-16 mr-3">
                 </a>
                 <div class="ml-4">
-                    <img src="img/download.png" alt="B Corp Certified" class="h-20">
+                    <img src="images/download.png" alt="B Corp Certified" class="h-20">
                 </div>
             </div>
-            
-            <nav class="hidden md:flex space-x-6">
-                <a href="#coral-tools" class="text-gray-700 hover:text-primary font-medium">Coral Tools</a>
-                <a href="#locations" class="text-gray-700 hover:text-primary font-medium">Locations</a>
-                <a href="#tech" class="text-gray-700 hover:text-primary font-medium">Tech</a>
-                <a href="#reefs-plus" class="text-gray-700 hover:text-primary font-medium">REEFS+</a>
-                <a href="#academy" class="text-gray-700 hover:text-primary font-medium">Academy</a>
-                <a href="#blog" class="text-gray-700 hover:text-primary font-medium">Blog</a>
-                <a href="#about" class="text-gray-700 hover:text-primary font-medium">About</a>
-            </nav>
-            
             <div class="flex items-center space-x-4">
-                <a href="adopt.php" class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-full font-medium">Adopt Coral</a>
-                <a href="login.php" class="text-gray-700 hover:text-primary font-medium">Log In</a>
-                <a href="cart.php" class="relative">
-                    <i class="fas fa-shopping-cart text-gray-700 text-xl"></i>
-                    <span class="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
-                </a>
-                <button id="mobile-menu-button" class="md:hidden text-gray-700">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
-            </div>
-        </div>
-            
-        
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
-            <div class="container mx-auto px-4 py-3 space-y-3">
-                <a href="#coral-tools" class="block text-gray-700 hover:text-primary font-medium">Coral Tools</a>
-                <a href="#locations" class="block text-gray-700 hover:text-primary font-medium">Locations</a>
-                <a href="#tech" class="block text-gray-700 hover:text-primary font-medium">Tech</a>
-                <a href="#reefs-plus" class="block text-gray-700 hover:text-primary font-medium">REEFS+</a>
-                <a href="#academy" class="block text-gray-700 hover:text-primary font-medium">Academy</a>
-                <a href="#blog" class="block text-gray-700 hover:text-primary font-medium">Blog</a>
-                <a href="#about" class="block text-gray-700 hover:text-primary font-medium">About</a>
+                <a href="login.php" class="text-gray-700 hover:text-primary font-medium">Register</a>
+                <a href="register.php" class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-full font-medium">Login</a>
             </div>
         </div>
     </header>
+    <!-- Header End -->
+
+         <!-- message display -->
+         <?php
+        if (isset($display_message)) {
+            echo "
+    <div class='flex items-start gap-3 bg-[#e0f2fe] text-[#0c4a6e] px-4 py-2 rounded-lg shadow-sm border border-[#06b6d4]  max-w-full'>
+        <svg xmlns='http://www.w3.org/2000/svg' class='h-5 w-5 mt-0.5 text-[#06b6d4]' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+            <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z' />
+        </svg>
+        <div class='flex-1 text-sm text-pink-700 font-medium'>$display_message</div>
+        <button onclick='this.parentElement.style.display=\"none\";' class='text-[#0c4a6e] hover:text-[#0891b2] transition'>
+            <svg xmlns='http://www.w3.org/2000/svg' class='h-4 w-4' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+                <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 18L18 6M6 6l12 12' />
+            </svg>
+        </button>
+    </div>
+    ";
+        }
+        ?>
 
     <!-- Login Section -->
     <section class="py-16">
@@ -83,19 +104,13 @@
                     <h1 class="text-2xl font-bold text-gray-800 mb-2">Welcome Back</h1>
                     <p class="text-gray-600">Sign in to access your coral dashboard</p>
                 </div>
-                
-                <?php if (isset($error)): ?>
-                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                    <?php echo $error; ?>
-                </div>
-                <?php endif; ?>
-                
+
                 <form method="POST" action="">
                     <div class="mb-4">
                         <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
                         <input type="text" id="username" name="username" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary" required>
                     </div>
-                    
+
                     <div class="mb-6">
                         <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
                         <input type="password" id="password" name="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary" required>
@@ -103,14 +118,9 @@
                             <a href="forgot-password.php" class="text-sm text-primary hover:underline">Forgot password?</a>
                         </div>
                     </div>
-                    <label for="remember">
-                        <input type="checkbox" name="remember" id="remember">
-                        <span class="inline-block text-sm text-slate-500 mb-2">Remember me</span>
-                    </label>
-                    
                     <button type="submit" name="login" class="w-full bg-primary hover:bg-primary/90 text-white py-2 rounded-lg font-medium">Sign In</button>
                 </form>
-                
+
                 <div class="mt-6 text-center">
                     <p class="text-gray-600">Don't have an account? <a href="register.php" class="text-primary hover:underline">Sign up</a></p>
                 </div>
@@ -132,7 +142,7 @@
                         <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
-                
+
                 <div>
                     <h4 class="text-lg font-bold mb-4">Quick Links</h4>
                     <ul class="space-y-2">
@@ -143,7 +153,7 @@
                         <li><a href="blog.php" class="text-gray-300 hover:text-white">Blog</a></li>
                     </ul>
                 </div>
-                
+
                 <div>
                     <h4 class="text-lg font-bold mb-4">Resources</h4>
                     <ul class="space-y-2">
@@ -154,7 +164,7 @@
                         <li><a href="academy.html" class="text-gray-300 hover:text-white">BlueHorizon Academy</a></li>
                     </ul>
                 </div>
-                
+
                 <div>
                     <h4 class="text-lg font-bold mb-4">Contact Us</h4>
                     <ul class="space-y-2">
@@ -173,7 +183,7 @@
                     </ul>
                 </div>
             </div>
-            
+
             <div class="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
                 <p class="text-gray-400">© 2025 BlueHorizon. All rights reserved.</p>
                 <div class="flex space-x-6 mt-4 md:mt-0">
@@ -187,5 +197,5 @@
 
     <script src="js/main.js"></script>
 </body>
-</html>
 
+</html>
