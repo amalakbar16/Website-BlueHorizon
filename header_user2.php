@@ -43,10 +43,20 @@ if (session_status() === PHP_SESSION_NONE) {
                 $select_product = mysqli_query($conn, "SELECT * FROM cart") or die(mysqli_error($conn));
                 $row = mysqli_num_rows($select_product);
                 ?>
-                <a href="cart.php" class="relative">
+                <?php
+                if (isset($_SESSION["login"])){
+                    echo '<a href="cart.php" class="relative">
                     <i class="fas fa-shopping-cart text-gray-700 text-xl"></i>
-                    <span class="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"><?= $row ?></span>
-                </a>
+                    <span class="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">'.$row.' </span>
+                </a>';
+                } else {
+                    echo '<a href="cart.php" class="relative">
+                    <i class="fas fa-shopping-cart text-gray-700 text-xl"></i>
+                    <span class="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </a>';
+                }
+                ?>
+                
                 <button id="mobile-menu-button" class="md:hidden text-gray-700">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
