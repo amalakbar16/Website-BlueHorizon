@@ -32,7 +32,6 @@
             <div class="flex items-center left-0">
                 <a href="dashboard_user.php" class="flex items-center">
                     <img src="images/BlueHorizon Logo 2.png" alt="BlueHorizon Logo" class="h-16 mr-3">
-                    <span class="text-2xl font-bold text-primary mr-3">BlueHorizon</span>
                 </a>
                 <div class="ml-4">
                     <img src="images/download.png" alt="B Corp Certified" class="h-20">
