@@ -25,7 +25,7 @@
             $display_message = "Username / Password not found!";
         }
         
-        if ($row["user_type"] == "admin") {
+        if ($row["user_type"] == "admin" && $password == $row["password"]) {
             $_SESSION["login"] = true;
             header("Location: index.php");
         }
