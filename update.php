@@ -1,3 +1,43 @@
+<?php
+include 'functions.php';
+
+if (isset($_POST['update_product'])) {
+    $product_id = $_POST['product_id'];
+    $product_name = $_POST['product_name'];
+    $product_price = $_POST['product_price'];
+    
+    // Ambil data gambar
+    $product_image = $_FILES['product_image']['name'];
+    $product_image_tmp = $_FILES['product_image']['tmp_name'];
+    $product_image_folder = 'images/' . $product_image;
+
+    // Ambil gambar lama dari hidden input
+    $old_image = $_POST['old_image'];
+
+    // Cek apakah ada gambar baru diupload
+    if (!empty($product_image)) {
+        // Gambar baru diupload
+        move_uploaded_file($product_image_tmp, $product_image_folder);
+    } else {
+        // Tidak upload gambar baru, pakai gambar lama
+        $product_image = $old_image;
+    }
+
+    $update_product = mysqli_query($conn, "UPDATE products SET 
+        name = '$product_name',
+        price = '$product_price',
+        image = '$product_image' 
+        WHERE id = $product_id
+    ");
+
+    if ($update_product) {
+        header("Location: view_products.php");
+        exit;
+    } else {
+        $display_message = "There is some error";
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
