@@ -1,11 +1,4 @@
 <?php
-session_start();
-
-if( !isset($_SESSION["login"])){
-    header("Location: login.php");
-    exit;
-}
-
 include("functions.php");
 if (isset($_POST["add_to_cart"])) {
     $product_name = $_POST["product_name"];
@@ -25,7 +18,6 @@ if (isset($_POST["add_to_cart"])) {
 }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,8 +46,8 @@ if (isset($_POST["add_to_cart"])) {
 </head>
 
 <body class="font-sans">
-    <?php include 'header_user.php' ?> 
-        <!-- message display -->
+   <?php include 'header_user.php' ?> 
+
         <?php
         if (isset($display_message)) {
             foreach ($display_message as $display_message) {
@@ -75,6 +67,20 @@ if (isset($_POST["add_to_cart"])) {
             }
         }
         ?>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="container mx-auto px-4 py-3 space-y-3">
+                <a href="#coral-tools" class="block text-gray-700 hover:text-primary font-medium">Coral Tools</a>
+                <a href="#locations" class="block text-gray-700 hover:text-primary font-medium">Locations</a>
+                <a href="#tech" class="block text-gray-700 hover:text-primary font-medium">Tech</a>
+                <a href="#reefs-plus" class="block text-gray-700 hover:text-primary font-medium">REEFS+</a>
+                <a href="#academy" class="block text-gray-700 hover:text-primary font-medium">Academy</a>
+                <a href="#blog" class="block text-gray-700 hover:text-primary font-medium">Blog</a>
+                <a href="#about" class="block text-gray-700 hover:text-primary font-medium">About</a>
+            </div>
+        </div>
+    </header>
 
     <!-- Page Header -->
     <section class="bg-primary py-12">
