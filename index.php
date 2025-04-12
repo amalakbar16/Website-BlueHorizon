@@ -1,5 +1,13 @@
 <?php
+
+session_start();
+
+if( !isset($_SESSION["login"])){
+    header("Location: login.php");
+    exit;
+}
 include("functions.php");
+include('header.php');
 
 if (isset($_POST["addProduct"])) {
     $productName = $_POST["productName"];
@@ -17,7 +25,6 @@ if (isset($_POST["addProduct"])) {
     }
 }
 ?>
-
 
 
 <!DOCTYPE html>
@@ -50,10 +57,6 @@ if (isset($_POST["addProduct"])) {
 </head>
 
 <body>
-
-    <!-- include header -->
-    <?php include('header.php'); ?>
-    <?php include('functions.php'); ?>
 
 
     <!-- FORM -->
