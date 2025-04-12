@@ -16,16 +16,12 @@
             </nav>
 
             <div class="flex items-center space-x-4">
-                <a href="adopt.php" class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-full font-medium">Adopt Coral</a>
+                <a href="logout.php" class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-full font-medium">Logout</a>
                 <!-- select query -->
                  <?php
                     $select_product = mysqli_query($conn, "SELECT * FROM cart") or die(mysqli_error($conn));
                     $row = mysqli_num_rows($select_product);
                  ?>
-                <a href="cart.php" class="relative">
-                    <i class="fas fa-shopping-cart text-gray-700 text-xl"></i>
-                    <span class="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"><?= $row ?></span>
-                </a>
                 <button id="mobile-menu-button" class="md:hidden text-gray-700">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
