@@ -50,7 +50,7 @@ if( isset($_POST["register"])){
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-1 py-3 flex items-center justify-between">
             <div class="flex items-center left-0">
-                <a href="index.php" class="flex items-center">
+                <a href="dashboard_user.php" class="flex items-center">
                     <img src="images/BlueHorizon Logo 2.png" alt="BlueHorizon Logo" class="h-16 mr-3">
                 </a>
                 <div class="ml-4">
