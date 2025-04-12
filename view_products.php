@@ -1,3 +1,6 @@
+<?php
+include("functions.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -86,7 +89,7 @@
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                 <div class="flex space-x-3">
-                  <a href="delete.php?delete=<?= $row['id'] ?>" class="delete_product_btn text-red-500 hover:text-red-700 transition-colors" onclick="return confirm('Are you sure?')">
+                  <a href="delete.php?delete=<?= $row['id'] ?>" class="delete_product_btn text-red-500 hover:text-red-700 transition-colors" onclick="return confirm('Are you sure want to delete this product?')">
                     <i class="fas fa-trash"></i>
                   </a>
                   <a href="update.php?edit=<?= $row['id'] ?>" class="update_product_btn text-secondary hover:text-accent transition-colors">
