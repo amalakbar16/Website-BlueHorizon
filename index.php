@@ -1,3 +1,22 @@
+<?php include 'functions.php';
+if (isset($_POST['addProduct'])){
+    $productName = $_POST["productName"];
+    $productPrice = $_POST["productPrice"];
+    $productImage = $_FILES["productImage"]["name"];
+    $productImage_temp_name = $_FILES["productImage"]["tmp_name"];
+    $productImageFolder = 'images/' . $productImage;
+    
+    $insertQuery = mysqli_query($conn, "INSERT INTO products (name,price,image) values ('', '$productName', '$productPrice', '$productImage')") or die("insert failed");
+    if ($insertQuery) {
+        move_uploaded_file($productImage_temp_name, $productImageFolder);
+        $display_message = "Product added successfully";
+    } else {
+        $display_message = "There is some error";
+    }
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
