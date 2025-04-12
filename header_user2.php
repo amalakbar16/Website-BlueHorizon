@@ -1,4 +1,5 @@
 <?php
+session_start();
     include_once("functions.php");
 ?>
 
@@ -27,7 +28,14 @@
 
             <div class="flex items-center space-x-4">
                 <a href="adopt.php" class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-full font-medium">Adopt Coral</a>
-                <a href="logout.php" class="text-gray-700 hover:text-primary px-4 py-2 rounded-full font-medium">Logout</a>
+                <?php
+                if (isset($_SESSION["login"])){
+                    echo '<a href="logout.php" class="text-gray-700 hover:text-primary px-4 py-2 rounded-full font-medium">Logout</a>';
+                } else {
+                    echo '<a href="login.php" class="text-gray-700 hover:text-primary px-4 py-2 rounded-full font-medium">Login</a>';
+                }
+                ?>
+                
 
                 <?php
                 $select_product = mysqli_query($conn, "SELECT * FROM cart") or die(mysqli_error($conn));
