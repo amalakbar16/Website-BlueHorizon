@@ -21,6 +21,8 @@
                 $_SESSION["login"] = true;
                 header("Location: dashboard_user.php");
             }
+        } else {
+            $display_message = "Username / Password not found!";
         }
         
         if ($row["user_type"] == "admin") {
