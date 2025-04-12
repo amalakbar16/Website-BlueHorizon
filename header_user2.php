@@ -1,3 +1,8 @@
+<?php
+    include_once("functions.php");
+?>
+
+ 
  <!-- Header -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-1 py-3 flex items-center justify-between">
@@ -22,21 +27,15 @@
 
             <div class="flex items-center space-x-4">
                 <a href="adopt.php" class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-full font-medium">Adopt Coral</a>
+                <a href="logout.php" class="text-gray-700 hover:text-primary px-4 py-2 rounded-full font-medium">Logout</a>
 
-                <?php if (isset($_SESSION['login']) && $_SESSION['login'] === true): ?>
-                    <!-- Jika sudah login, tampilkan icon profil -->
-                    <a href="profile.php" class="text-gray-700 hover:text-primary font-medium">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A4 4 0 0112 14a4 4 0 016.879 3.804M12 14V10m0 0a4 4 0 100-8 4 4 0 000 8z" />
-                        </svg>
-                    </a>
-                <?php else: ?>
-                    <!-- Jika belum login, tampilkan tombol login -->
-                    <a href="logout.php" class="text-gray-700 hover:text-primary font-medium">Logout</a>
-                <?php endif; ?>
+                <?php
+                $select_product = mysqli_query($conn, "SELECT * FROM cart") or die(mysqli_error($conn));
+                $row = mysqli_num_rows($select_product);
+                ?>
                 <a href="cart.php" class="relative">
                     <i class="fas fa-shopping-cart text-gray-700 text-xl"></i>
-                    <span class="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    <span class="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"><?= $row ?></span>
                 </a>
                 <button id="mobile-menu-button" class="md:hidden text-gray-700">
                     <i class="fas fa-bars text-xl"></i>

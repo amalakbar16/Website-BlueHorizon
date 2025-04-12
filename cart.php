@@ -63,7 +63,8 @@ if (isset($_GET["delete_all"])) {
 </head>
 
 <body>
-        <?php include 'header_user.php' ?>        
+<?php include 'header_user2.php'?>
+       
 
         <!-- MY Cart -->
         <div class="bg-white min-h-screen">

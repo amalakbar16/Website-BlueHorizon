@@ -54,7 +54,9 @@ if (isset($_POST["add_to_cart"])) {
 </head>
 
 <body class="font-sans">
-    <?php include 'header_user.php' ?> 
+    
+<?php include 'header_user2.php'?>
+
         <!-- message display -->
         <?php
         if (isset($display_message)) {

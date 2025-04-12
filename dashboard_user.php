@@ -26,7 +26,7 @@
 </head>
 
 <body class="font-sans">
-   <?php include 'header_user.php'?>
+   <?php include 'header_user2.php'?>
 
     <!-- Hero Section -->
     <section class="relative h-[600px] overflow-hidden">

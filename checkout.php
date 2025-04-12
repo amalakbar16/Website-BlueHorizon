@@ -120,7 +120,7 @@ if (isset($_POST["order_btn"])) {
 </head>
 
 <body>
-<?php include 'header_user.php' ?> 
+<?php include 'header_user2.php'?>
         <!-- message display -->
         <?php
         if (isset($display_message)) {
