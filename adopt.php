@@ -46,15 +46,10 @@ if (isset($_POST["add_to_cart"])) {
 </head>
 
 <body class="font-sans">
-<<<<<<< HEAD
     
 <?php include 'header_user2.php'?>
 
-        <!-- message display -->
-=======
-   <?php include 'header_user.php' ?> 
 
->>>>>>> 4047f99ab39dadcac1a9045f77b1f8e04c5168ca
         <?php
         if (isset($display_message)) {
             foreach ($display_message as $display_message) {
