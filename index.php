@@ -58,7 +58,6 @@ if (isset($_POST["addProduct"])) {
 
 <body>
 
-    <a href="logout.php">logout</a>
 
     <!-- FORM -->
     <div class="container mx-auto px-4 py-8 max-w-md mb-7">
