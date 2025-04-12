@@ -1,3 +1,90 @@
+<?php
+include("functions.php");
+
+if (isset($_POST["order_btn"])) {
+    $name = $_POST['name'];
+    $company = $_POST['company'];
+    $email = $_POST['email'];
+    $country = $_POST['country'];
+
+    $cart_query = mysqli_query($conn, "SELECT * FROM cart");
+    $product_total = 0;
+    $price_total = 0;
+    if (mysqli_num_rows($cart_query) > 0) {
+        while ($product_item = mysqli_fetch_assoc($cart_query)) {
+            $product_name[] = $product_item["name"] . ' (' . $product_item['quantity'] . ' )';
+            $product_price = $product_item["price"] * $product_item['quantity'];
+            $price_total += $product_price;
+        };
+    };
+    $total_product = implode(',', $product_name);
+    $detail_query = mysqli_query($conn, "INSERT INTO `order` VALUES ('', '$name', '$company', '$email', '$country', '$total_product', '$price_total')") or die('query failed');
+
+
+    if ($cart_query && $detail_query) {
+        mysqli_query($conn, "DELETE FROM cart") or die("Query Failed");
+        echo '
+        <div class="flex flex-col bg-light text-dark p-6 rounded-lg shadow-sm border border-accent max-w-md mx-auto inset-0 z-50 absolute lg:h-1/2 ">
+          <!-- Header with icon and close button -->
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" />
+              </svg>
+              <h3 class="text-lg font-semibold">Thank you for adopting!</h3>
+            </div>
+            
+            <button onclick="this.closest(\'.flex.flex-col\').style.display=\'none\';" class="text-dark hover:text-secondary transition">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          
+          <!-- Order details -->
+          <div class="bg-white rounded-md p-4 mb-4 border border-gray-100">
+            <h4 class="font-medium text-primary mb-2">Order Details</h4>
+            <div class="grid grid-cols-2 gap-2 text-sm">
+              <span class="text-gray-600">Total Product:</span>
+              <span class="font-medium">' . $total_product . '</span>
+              
+              <span class="text-gray-600">Total:</span>
+              <span class="font-medium">$' . $price_total . '</span>
+            </div>
+          </div>
+          
+          <!-- Customer details -->
+          <div class="bg-white rounded-md p-4 mb-6 border border-gray-100">
+            <h4 class="font-medium text-primary mb-2">Customer Details</h4>
+            <div class="grid grid-cols-2 gap-2 text-sm">
+              <span class="text-gray-600">Name:</span>
+              <span class="font-medium">' . $name . '</span>
+              
+              <span class="text-gray-600">Company:</span>
+              <span class="font-medium">' . $company . '</span>
+              
+              <span class="text-gray-600">Email:</span>
+              <span class="font-medium">' . $email . '</span>
+              
+              <span class="text-gray-600">Country:</span>
+              <span class="font-medium">' . $country . '</span>
+            </div>
+          </div>
+          
+          <!-- Continue button -->
+            <a href="adopt.php" class="self-center px-6 py-2 mb-9 bg-primary hover:bg-secondary text-white      font-medium rounded-md transition-colors text-center">
+                Continue Adopting
+            </a>
+         
+        </div>
+        ';
+    }
+    
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +114,7 @@
 
 <body>
 <!-- Header -->
-<header class="bg-white shadow-sm sticky top-0 z-50">
+<header class="bg-white shadow-sm sticky top-0">
         <div class="container mx-auto px-1 py-3 flex items-center justify-between">
             <div class="flex items-center left-0">
                 <a href="index.php" class="flex items-center">

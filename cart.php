@@ -1,6 +1,40 @@
-<?php
-include 'functions.php';
+
+<?php 
+include 'functions.php'; 
+
+// update query
+if ( isset($_POST['update_cart_quantity'])) {
+    $update_quantity = $_POST['update_quantity'];
+    $cart_id_quantity = $_POST['cart_id_quantity'];
+
+    $update_quantity_query = mysqli_query($conn, "UPDATE cart SET quantity=$update_quantity WHERE id=$cart_id_quantity");
+
+    if ($update_quantity_query) {
+        header("Location: cart.php");
+        $display_message = "Product added successfully";
+    }
+}
+
+if (isset($_GET["remove"])) {
+    $remove_id = $_GET["remove"];
+
+    $delete_query = mysqli_query($conn,"DELETE FROM cart WHERE id=$remove_id");
+    if ($delete_query) {
+        header("Location: cart.php");
+    } else {
+        header("Location: cart.php");
+    }
+}
+
+if (isset($_GET["delete_all"])) {
+    mysqli_query($conn, "DELETE FROM cart") or die("Query Failed");
+    header("Location: cart.php");
+    
+}
+
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
