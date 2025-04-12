@@ -20,11 +20,14 @@
             if ($row["user_type"] == "user") {
                 $_SESSION["login"] = true;
                 header("Location: dashboard_user.php");
-            } else if ($row["user_type"] == "admin") {
-                $_SESSION["login"] = true;
-                header("Location: index.php");
             }
         }
+        
+        if ($row["user_type"] == "admin") {
+            $_SESSION["login"] = true;
+            header("Location: index.php");
+        }
+
     } else {
         $display_message = "Username / Password not found!";
     }
