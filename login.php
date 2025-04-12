@@ -18,8 +18,10 @@
             $_SESSION["user_type"] = $row["user_type"];
 
             if ($row["user_type"] == "user") {
+                $_SESSION["login"] = true;
                 header("Location: dashboard_user.php");
             } else if ($row["user_type"] == "admin") {
+                $_SESSION["login"] = true;
                 header("Location: index.php");
             }
         }
@@ -62,7 +64,7 @@
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-1 py-3 flex items-center justify-between">
             <div class="flex items-center left-0">
-                <a href="index.php" class="flex items-center">
+                <a href="dashboard_user.php" class="flex items-center">
                     <img src="images/BlueHorizon Logo 2.png" alt="BlueHorizon Logo" class="h-16 mr-3">
                 </a>
                 <div class="ml-4">
@@ -70,8 +72,8 @@
                 </div>
             </div>
             <div class="flex items-center space-x-4">
-                <a href="login.php" class="text-gray-700 hover:text-primary font-medium">Register</a>
-                <a href="register.php" class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-full font-medium">Login</a>
+                <a href="register.php" class="text-gray-700 hover:text-primary font-medium">Register</a>
+                <a href="login.php" class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-full font-medium">Login</a>
             </div>
         </div>
     </header>

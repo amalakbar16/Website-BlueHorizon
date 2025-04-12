@@ -1,29 +1,15 @@
 <?php
 include("functions.php");
 
-if (isset($_POST["register"])) {
-    $username = $_POST["username"];
-    $email = $_POST["email"];
-    $password = $_POST["password"]; 
-    $user_type = $_POST["user_type"];
+if( isset($_POST["register"])){
 
-    // cek username sudah ada atau belum
-    $result = mysqli_query($conn, "SELECT * FROM users WHERE username='$username'");
-    if (mysqli_fetch_assoc($result)) {
-        echo "<script>
-                alert('username sudah ada!')
-              </script>";
-    } 
-
-    // enkripsi password
-    $password = password_hash($password, PASSWORD_DEFAULT);
-
-    // tambah ke database
-    $insertQuery = mysqli_query($conn,"INSERT INTO users VALUES ('', '$username', '$email', '$password', '$user_type')");
-
-    if ($insertQuery){
+    if(register($_POST) > 0){
         $display_message = "Register successfully";
+        header("Location: login.php");
+    exit;
     }
+} else{
+    echo mysqli_error($conn);
 }
 ?>
 
@@ -73,7 +59,7 @@ if (isset($_POST["register"])) {
             </div>
             <div class="flex items-center space-x-4">
                 <a href="register.php" class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-full font-medium">Register</a>
-                <a href="login.php" class="text-gray-700 hover:text-primary font-medium">Log In</a>
+                <a href="login.php" class="text-gray-700 hover:text-primary font-medium">Login</a>
             </div>
         </div>
     </header>
@@ -120,18 +106,17 @@ if (isset($_POST["register"])) {
                 <label for="password">
                     <span class="block text-sm text-slate-500 mb-2">Password</span>
                     <input type="password" name="password" id="password" class="px-3 py-2 border shadow rounded-full w-full lg:w-96 h-10 focus:outline-none focus:bg-sky-50 invalid:text-pink-300 invalid:focus:ring-pink-400 invalid:focus:border-pink-400 mb-3" required>
+                </label>
+
+                <!-- konfirmasi password -->
+                <label for="password2">
+                    <span class="block text-sm text-slate-500 mb-2">Konfirmasi Password</span>
+                    <input type="password" name="password2" id="password2" class="px-3 py-2 border shadow rounded-full w-full lg:w-96 h-10 focus:outline-none focus:bg-sky-50 invalid:text-pink-300 invalid:focus:ring-pink-400 invalid:focus:border-pink-400 mb-3" required>
                     <p class="text-xs text-slate-400 mb-2">ℹ️ Create a strong password with a minimum of 10 characters and a mix of letters, numbers, and symbols.</p>
                 </label>
 
                 <!-- User Type -->
                 <label for="user_type" class="relative block lg:w-96 w-full mb-3">
-                    <span class="block text-sm text-slate-500 mb-2">User Type</span>
-                    <select name="user_type" id="user_type" required
-                        class="appearance-none px-3 py-2 border shadow rounded-full w-full h-10 focus:outline-none focus:bg-sky-50 text-slate-600 pr-10 mb-3">
-                        <option value="" disabled selected>Select user type</option>
-                        <option value="admin">Admin</option>
-                        <option value="user">User</option>
-                    </select>
 
                     <div class="mb-3 flex items-start space-x-2">
                         <input type="checkbox" class="mt-1" required>
