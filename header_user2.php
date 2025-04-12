@@ -4,7 +4,7 @@
 
  
  <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
+    <header class="bg-white shadow-sm sticky top-0 z-20">
         <div class="container mx-auto px-1 py-3 flex items-center justify-between">
             <div class="flex items-center left-0">
                 <a href="dashboard_user.php" class="flex items-center">
