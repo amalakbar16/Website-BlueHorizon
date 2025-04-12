@@ -61,7 +61,7 @@
                     </a>
                 <?php else: ?>
                     <!-- Jika belum login, tampilkan tombol login -->
-                    <a href="login.php" class="text-gray-700 hover:text-primary font-medium">Log In</a>
+                    <a href="logout.php" class="text-gray-700 hover:text-primary font-medium">Logout</a>
                 <?php endif; ?>
                 <a href="cart.php" class="relative">
                     <i class="fas fa-shopping-cart text-gray-700 text-xl"></i>
@@ -87,7 +87,6 @@
         </div>
     </header>
 
-    <a href="logout.php">logout</a>
     <!-- Hero Section -->
     <section class="relative h-[600px] overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-r from-dark/70 to-transparent z-10"></div>
