@@ -31,7 +31,7 @@ if (isset($_POST["order_btn"])) {
     if ($cart_query && $detail_query) {
         mysqli_query($conn, "DELETE FROM cart") or die("Query Failed");
         echo '
-        <div class="flex flex-col bg-light text-dark p-6 rounded-lg shadow-sm border border-accent max-w-md mx-auto inset-0 z-50 absolute lg:h-1/2 ">
+        <div class="flex flex-col bg-light text-dark p-6 rounded-lg shadow-sm border border-accent max-w-md mx-auto inset-0 z-50 absolute lg:h-full ">
           <!-- Header with icon and close button -->
           <div class="flex items-center justify-between mb-4">
             <div class="flex items-center gap-3">
